@@ -2,13 +2,13 @@ import Action from "./classes/Action.js";
 import ActionsManager from "./classes/ActionsManager.js";
 
 let manager = new ActionsManager();
-let food = new Action("expense", "fruits", 200);
-manager.addAction(food);
-manager.addAction(new Action("income", "salary", 10000));
+// let food = new Action("expense", "fruits", 200);
+// manager.addAction(food);
+// manager.addAction(new Action("income", "salary", 10000));
 console.log(manager.actions);
 // manager.deleteAction(food.id);
 // console.log(manager.actions);
-manager.updateAction(food.id, 350);
+// manager.updateAction(food.id, 350);
 manager.calcBalance();
 console.log(manager.balance);
 
@@ -59,7 +59,8 @@ window.addNewAction = () => {
   document.getElementById("type").value = "income";
   document.getElementById("description").value = "";
   document.getElementById("amount").value = "";
-
+  // update localStorage
+  localStorage.setItem("Actions", JSON.stringify(manager.actions));
   //call showActionsInTable();
   showActionsInTable();
 };
@@ -71,7 +72,9 @@ window.updateAction = (id) => {
     alert("Sorry! something went wrong");
   else {
     //update action
-    manager.updateAction(id, +newAmount);
+    manager.updateAction(id, newAmount);
+    // update localStorage
+    localStorage.setItem("Actions", JSON.stringify(manager.actions));
     // call showActionInTable()
     showActionsInTable();
   }
@@ -82,6 +85,8 @@ window.deleteAction = (id) => {
   if (confirm("Please confirm\nEither OK or Cancel.")) {
     //delete action
     manager.deleteAction(id);
+    // update localStorage
+    localStorage.setItem("Actions", JSON.stringify(manager.actions));
     // call showActionInTable()
     showActionsInTable();
   }
